@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Castle Defence.sln"
+    "dotnet.defaultSolution": "Castle-Defence.sln"
 }
