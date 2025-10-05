@@ -16,7 +16,6 @@ public class SpectatorMovement : MonoBehaviour
     void Start()
     {
         m_camera = Camera.main;  // Don't keep calling Camera.main
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
