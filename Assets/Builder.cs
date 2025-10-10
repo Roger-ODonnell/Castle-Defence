@@ -7,12 +7,17 @@ public class Builder : MonoBehaviour
     public GameObject[] placeablePrefabs; // Array of defenses you can place
     public LayerMask terrainMask;         // Only raycast against terrain
 
+
     [Header("Preview Settings")]
     public Material previewMaterial;      // Semi-transparent material for preview
 
     private GameObject currentPreview;    // The ghost object
     private GameObject currentPrefab;     // The prefab to place
     private int selectedIndex = 0;
+
+    [Header("Collision Settings")]
+    public LayerMask placementCheckMask; // assign this to "Placeables" layer in Inspector
+
 
     bool prefabSpawned = false;
 
@@ -118,6 +123,35 @@ public class Builder : MonoBehaviour
             return;
         }
 
-        Instantiate(currentPrefab, position, Quaternion.identity);
+        Collider prefabCollider = currentPrefab.GetComponentInChildren<Collider>();
+        if (prefabCollider == null)
+        {
+            Debug.LogWarning("Prefab has no collider for placement check!");
+            return;
+        }
+
+        // Calculate box bounds for overlap check
+        Vector3 prefabSize = prefabCollider.bounds.size;
+        Vector3 halfExtents = prefabSize / 2f;
+        Vector3 boxCenter = position + Vector3.up * halfExtents.y;
+
+        // Check for overlapping colliders (but ignore triggers)
+        Collider[] colliders = Physics.OverlapBox(boxCenter, halfExtents, Quaternion.identity, placementCheckMask);
+        foreach (Collider col in colliders)
+        {
+            if (!col.isTrigger) // only block if collider is NOT a trigger
+            {
+                Debug.Log("Cannot place: space is occupied.");
+                return;
+            }
+        }
+
+        // Safe to place
+        GameObject placedObject = Instantiate(currentPrefab, position, Quaternion.identity);
+        placedObject.tag = "Buildable";
+        placedObject.layer = LayerMask.NameToLayer("Placeables");
     }
+
+
+
 }
