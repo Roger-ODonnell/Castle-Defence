@@ -16,6 +16,7 @@ public class Sentry : MonoBehaviour
     [SerializeField] float bulletSpeed = 30f;
     [SerializeField] float baseShootDelay = 5f;
     [SerializeField] float damage = 20f;
+    [SerializeField] float shootAfterLockDelay = 2f;
     public float shootDelay;
 
     [SerializeField] AudioManager audioManager;
@@ -33,22 +34,28 @@ public class Sentry : MonoBehaviour
             if (target == null)
             {
                 LockOff();
+                shootDelay = baseShootDelay;
                 return;
             }
 
             Vector3 relativePos = target.transform.position - turretHead.transform.position;
 
-            Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-            turretHead.transform.rotation = Quaternion.Lerp(turretHead.transform.rotation, rotation, Time.deltaTime * 5f);
+            Quaternion targetRotation = Quaternion.LookRotation(relativePos, Vector3.up);
+            float rotationSpeed = 360f; // degrees per second, adjust as needed
+            turretHead.transform.rotation = Quaternion.RotateTowards(
+                turretHead.transform.rotation,
+                targetRotation,
+                rotationSpeed * Time.deltaTime
+            );
 
             if (shootDelay <= 0)
             {
                 Shoot();
             }
 
+            shootDelay -= Time.deltaTime;
         }
 
-        shootDelay -= Time.deltaTime;
     }
 
     private void Shoot()
@@ -99,7 +106,6 @@ public class Sentry : MonoBehaviour
 
         target = null;
         targetLocked = false;
-        //turretHead.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     private void LockOn(GameObject tar)
