@@ -1,4 +1,5 @@
 
+using UnityEditor;
 using UnityEngine;
 
 public class Builder : MonoBehaviour
@@ -23,6 +24,31 @@ public class Builder : MonoBehaviour
         HandlePlacement();
     }
 
+    public void PopulatePreview()
+    {
+        if (currentPrefab == null) return;
+
+        currentPreview = Instantiate(currentPrefab, transform.position, Quaternion.identity);
+        ApplyPreviewMaterial(currentPreview);
+        currentPreview.layer = LayerMask.NameToLayer("Preview");
+        foreach (Transform child in currentPreview.GetComponentsInChildren<Transform>())
+        {
+            child.gameObject.layer = LayerMask.NameToLayer("Preview");
+        }
+
+    }
+
+    void ApplyPreviewMaterial(GameObject obj)
+    {
+        Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+        foreach (Renderer r in renderers)
+        {
+            r.material = previewMaterial;
+        }
+    }
+
+
+
     void HandlePlacement()
     {
         // Ray from mouse to terrain
@@ -41,6 +67,7 @@ public class Builder : MonoBehaviour
             }
         }
     }
+
 
     void PlaceObject(Vector3 position)
     {
@@ -73,6 +100,9 @@ public class Builder : MonoBehaviour
         GameObject placedObject = Instantiate(currentPrefab, position, Quaternion.identity);
         placedObject.tag = "Buildable";
         placedObject.layer = LayerMask.NameToLayer("Placeables");
+        Destroy(currentPreview);
+        currentPreview = null;
+
     }
 
 

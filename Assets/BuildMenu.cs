@@ -24,6 +24,7 @@ public class BuildMenu : MonoBehaviour
             Button button = buttonObj.GetComponent<Button>();
             Image iconImage = buttonObj.transform.Find("Icon").GetComponent<Image>();
             TMP_Text nameText = buttonObj.transform.Find("Name").GetComponent<TMP_Text>();
+            TMP_Text priceText = buttonObj.transform.Find("Price").GetComponent<TMP_Text>();
 
             iconImage.sprite = obj.icon;
             nameText.text = obj.objectName;
@@ -34,11 +35,12 @@ public class BuildMenu : MonoBehaviour
 
     private void OnItemSelected(SpawnableObject obj)
     {
-        Builder builder = FindObjectOfType<Builder>();
+        Builder builder = FindFirstObjectByType<Builder>();
         if (builder != null)
         {
             builder.currentPrefab = obj.prefab;
-            buildMenuUI.SetActive(false); // Hide menu after selection
+            builder.PopulatePreview();
+
         }
     }
 }
