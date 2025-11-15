@@ -16,7 +16,6 @@ public class Sentry : MonoBehaviour
     [SerializeField] float bulletSpeed = 30f;
     [SerializeField] float baseShootDelay = 5f;
     [SerializeField] float damage = 20f;
-    [SerializeField] float shootAfterLockDelay = 2f;
     public float shootDelay;
 
     [SerializeField] AudioManager audioManager;
