@@ -13,7 +13,7 @@ public class Builder : MonoBehaviour
     [Header("Preview Settings")]
     public Material previewMaterial;      // Semi-transparent material for preview
 
-    private GameObject currentPreview;    // The ghost object
+    public GameObject currentPreview;    // The ghost object
     public GameObject currentPrefab;     // The prefab to place
 
     [Header("Collision Settings")]
@@ -22,6 +22,11 @@ public class Builder : MonoBehaviour
     void Update()
     {
         HandlePlacement();
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            CancelChoice();
+        }
     }
 
     public void PopulatePreview()
@@ -48,6 +53,12 @@ public class Builder : MonoBehaviour
     }
 
 
+    private void CancelChoice()
+    {
+        Destroy(currentPreview);
+        currentPreview = null;
+        currentPrefab = null;
+    }
 
     void HandlePlacement()
     {
@@ -102,9 +113,6 @@ public class Builder : MonoBehaviour
         placedObject.layer = LayerMask.NameToLayer("Placeables");
         Destroy(currentPreview);
         currentPreview = null;
-
+        currentPrefab = null;
     }
-
-
-
 }

@@ -36,11 +36,10 @@ public class BuildMenu : MonoBehaviour
     private void OnItemSelected(SpawnableObject obj)
     {
         Builder builder = FindFirstObjectByType<Builder>();
-        if (builder != null)
+        if (builder != null && builder.currentPreview == null)
         {
             builder.currentPrefab = obj.prefab;
             builder.PopulatePreview();
-
         }
     }
 }
