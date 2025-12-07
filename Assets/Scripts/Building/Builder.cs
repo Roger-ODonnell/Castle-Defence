@@ -19,6 +19,8 @@ public class Builder : MonoBehaviour
     [Header("Collision Settings")]
     public LayerMask placementCheckMask; // assign this to "Placeables" layer in Inspector
 
+    float itemPrice;
+
     void Update()
     {
         HandlePlacement();
@@ -29,7 +31,7 @@ public class Builder : MonoBehaviour
         }
     }
 
-    public void PopulatePreview()
+    public void PopulatePreview(float price)
     {
         if (currentPrefab == null) return;
 
@@ -40,7 +42,7 @@ public class Builder : MonoBehaviour
         {
             child.gameObject.layer = LayerMask.NameToLayer("Preview");
         }
-
+        itemPrice = price;
     }
 
     void ApplyPreviewMaterial(GameObject obj)
@@ -114,5 +116,7 @@ public class Builder : MonoBehaviour
         Destroy(currentPreview);
         currentPreview = null;
         currentPrefab = null;
+        FindFirstObjectByType<GameManager>().playerMoney -= itemPrice;
+        FindFirstObjectByType<GameManager>().UpdateMoneyText();
     }
 }

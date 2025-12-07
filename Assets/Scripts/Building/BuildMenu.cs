@@ -39,7 +39,7 @@ public class BuildMenu : MonoBehaviour
         if (builder != null && builder.currentPreview == null)
         {
             builder.currentPrefab = obj.prefab;
-            builder.PopulatePreview();
+            builder.PopulatePreview(obj.cost);
         }
     }
 }

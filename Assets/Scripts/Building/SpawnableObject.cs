@@ -7,5 +7,5 @@ public class SpawnableObject : ScriptableObject
     public GameObject prefab;
     public Sprite icon;
     public string objectName;
-    public int cost;
+    public float cost;
 }
