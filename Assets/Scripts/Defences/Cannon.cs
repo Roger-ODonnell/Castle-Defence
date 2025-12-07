@@ -2,7 +2,7 @@ using System;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class Sentry : MonoBehaviour
+public class Cannon : MonoBehaviour
 {
     [SerializeField] Transform turretHead;
     [SerializeField] AudioSource turretShot;
@@ -67,9 +67,11 @@ public class Sentry : MonoBehaviour
 
         if (bulletRb != null)
         {
-            int rand = UnityEngine.Random.Range(0, 2);
-            firePonts[rand].GetComponentInChildren<ParticleSystem>().Play();
-            bulletRb.AddForce(firePonts[rand].forward * bulletSpeed, ForceMode.Impulse);
+            if (firePonts[0].GetComponentInChildren<ParticleSystem>())
+            {
+                firePonts[0].GetComponentInChildren<ParticleSystem>().Play();
+            }
+            bulletRb.AddForce(firePonts[0].forward * bulletSpeed, ForceMode.Impulse);
         }
 
         audioManager.queueSound(turretShot);
