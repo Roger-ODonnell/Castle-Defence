@@ -28,6 +28,7 @@ public class BuildMenu : MonoBehaviour
 
             iconImage.sprite = obj.icon;
             nameText.text = obj.objectName;
+            priceText.text = "$ " + obj.cost.ToString();
 
             button.onClick.AddListener(() => OnItemSelected(obj));
         }

@@ -1,4 +1,5 @@
 
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -20,6 +21,8 @@ public class Builder : MonoBehaviour
     public LayerMask placementCheckMask; // assign this to "Placeables" layer in Inspector
 
     float itemPrice;
+    [SerializeField] Animator buildUiAnimator;
+    bool BuildUiState = false;
 
     void Update()
     {
@@ -28,6 +31,24 @@ public class Builder : MonoBehaviour
         if (Input.GetKey(KeyCode.Escape))
         {
             CancelChoice();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (BuildUiState) { BuildUiState = false; } else { BuildUiState = true; }
+            ToggleBuildMenu();
+        }
+    }
+
+    private void ToggleBuildMenu()
+    {
+        if (!BuildUiState)
+        {
+            buildUiAnimator.SetBool("Toggled", false);
+        }
+        else
+        {
+            buildUiAnimator.SetBool("Toggled", true);
         }
     }
 
@@ -73,10 +94,9 @@ public class Builder : MonoBehaviour
                 currentPreview.transform.position = hit.point;
             }
 
-            if (Input.GetMouseButtonDown(0)) // Left click = place
+            if (Input.GetMouseButtonDown(0) && hit.collider.gameObject.isStatic) // Left click = place
             {
                 PlaceObject(hit.point);
-                Debug.DrawRay(hit.point, Vector3.up, Color.red, 1f);
             }
         }
     }

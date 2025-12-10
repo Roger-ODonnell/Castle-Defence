@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3972918831823855602}
   - component: {fileID: 9085722911631761079}
   - component: {fileID: 753652451823385051}
+  - component: {fileID: 437449385136152906}
   m_Layer: 6
   m_Name: Item
   m_TagString: Untagged
@@ -26,8 +27,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 898397936081912350}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.000005934}
-  m_LocalScale: {x: 0.85859, y: 0.85859, z: 0.85859}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.139349, y: 1.139349, z: 1.139349}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1542489071465826293}
@@ -94,6 +95,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &437449385136152906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898397936081912350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5382c05b95c5e144599b4a3034b79f30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIHoverAnimation
+  normalScale: {x: 1, y: 1, z: 1}
+  hoverScale: {x: 1.1, y: 1.1, z: 1.1}
+  speed: 10
 --- !u!1 &3861444680006245118
 GameObject:
   m_ObjectHideFlags: 0

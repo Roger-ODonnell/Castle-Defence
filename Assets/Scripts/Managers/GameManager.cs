@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     private GameObject startButton;
     public float playerMoney = 200;
     [SerializeField] private TMP_Text moneyText;
+    [SerializeField] Animator startButtonAnim;
 
     void Awake()
     {
@@ -32,12 +33,13 @@ public class GameManager : MonoBehaviour
     public void StartSpawner()
     {
         spawner.SetActive(true);
+        startButtonAnim.SetBool("Start", true);
         startButton.SetActive(false);
     }
 
     public void UpdateMoneyText()
     {
-        moneyText.text = "€" + playerMoney;
+        moneyText.text = playerMoney.ToString();
     }
 
 
