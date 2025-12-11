@@ -136,7 +136,6 @@ public class Builder : MonoBehaviour
         Destroy(currentPreview);
         currentPreview = null;
         currentPrefab = null;
-        FindFirstObjectByType<GameManager>().playerMoney -= itemPrice;
-        FindFirstObjectByType<GameManager>().UpdateMoneyText();
+        FindFirstObjectByType<GameManager>().UpdateMoneyText(itemPrice);
     }
 }

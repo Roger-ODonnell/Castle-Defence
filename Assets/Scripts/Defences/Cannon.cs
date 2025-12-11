@@ -74,7 +74,7 @@ public class Cannon : MonoBehaviour
             bulletRb.AddForce(firePonts[0].forward * bulletSpeed, ForceMode.Impulse);
         }
 
-        audioManager.queueSound(turretShot);
+        AudioManager.Instance.PlaySFX("Cannon Shot");
 
         shootDelay = baseShootDelay;
     }

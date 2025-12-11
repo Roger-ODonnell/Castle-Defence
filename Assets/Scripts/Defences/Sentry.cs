@@ -72,7 +72,7 @@ public class Sentry : MonoBehaviour
             bulletRb.AddForce(firePonts[rand].forward * bulletSpeed, ForceMode.Impulse);
         }
 
-        audioManager.queueSound(turretShot);
+        AudioManager.Instance.PlaySFX("Cannon Shot");
 
         shootDelay = baseShootDelay;
     }
